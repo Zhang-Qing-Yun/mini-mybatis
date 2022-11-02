@@ -1,8 +1,9 @@
 package com.qingyun.mybatis.binding;
 
+import com.qingyun.mybatis.session.SqlSession;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.Map;
 
 /**
  * @description： 代理类，模拟根据接口的方法名执行查数据库并返回结果的过程
@@ -12,10 +13,10 @@ import java.util.Map;
 public class MapperProxy<T> implements InvocationHandler {
     // 代理的接口
     private final Class<T> mapperInterface;
-    // 模拟代理接口的方法的执行过程
-    private Map<String, String> sqlSession;
+    // 接口方法的具体执行过程
+    private SqlSession sqlSession;
 
-    public MapperProxy(Class<T> mapperInterface, Map<String, String> sqlSession) {
+    public MapperProxy(Class<T> mapperInterface, SqlSession sqlSession) {
         this.mapperInterface = mapperInterface;
         this.sqlSession = sqlSession;
     }
@@ -27,6 +28,6 @@ public class MapperProxy<T> implements InvocationHandler {
             return method.invoke(this, args);
         }
         String key = mapperInterface.getName() + "." + method.getName();
-        return "代理结果：" + sqlSession.get(key);
+        return sqlSession.selectOne(method.getName(), args);
     }
 }
