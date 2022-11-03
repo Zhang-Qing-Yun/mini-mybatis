@@ -9,4 +9,5 @@ public interface IUserDao {
 
     String queryUserName(String uId);
 
+    String queryUserInfoById(String uId);
 }

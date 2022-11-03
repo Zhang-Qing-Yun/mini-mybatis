@@ -13,6 +13,11 @@ public interface SqlSession {
     <T> T getMapper(Class<T> type);
 
     /**
+     * 得到配置类
+     */
+    Configuration getConfiguration();
+
+    /**
      * 根据指定的SqlID获取数据库一条记录的封装对象
      */
     <T> T selectOne(String statement, Object parameter);

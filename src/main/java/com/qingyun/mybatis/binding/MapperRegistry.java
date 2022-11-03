@@ -1,6 +1,7 @@
 package com.qingyun.mybatis.binding;
 
 import cn.hutool.core.lang.ClassScanner;
+import com.qingyun.mybatis.session.Configuration;
 import com.qingyun.mybatis.session.SqlSession;
 
 import java.util.HashMap;
@@ -15,6 +16,12 @@ import java.util.Set;
 public class MapperRegistry {
     // Dao接口以及对应的代理类工厂
     private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<>();
+
+    private Configuration config;
+
+    public MapperRegistry(Configuration config) {
+        this.config = config;
+    }
 
     /**
      * 注册DAO接口
